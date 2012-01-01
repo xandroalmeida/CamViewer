@@ -2,6 +2,7 @@
 #define CAMCONFIGDLG_H
 
 #include <QDialog>
+#include "camconfig.h"
 
 namespace Ui {
 class CamConfigDlg;
@@ -12,7 +13,7 @@ class CamConfigDlg : public QDialog
     Q_OBJECT
     
 public:
-    explicit CamConfigDlg(QWidget *parent = 0);
+    explicit CamConfigDlg(CamConfig *cfg = 0, QWidget *parent = 0);
     ~CamConfigDlg();
     
 private slots:
@@ -20,6 +21,7 @@ private slots:
 
 private:
     Ui::CamConfigDlg *ui;
+    QUuid m_uuid;
 };
 
 #endif // CAMCONFIGDLG_H

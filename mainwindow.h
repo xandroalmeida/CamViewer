@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "appcontrol.h"
 
 namespace Ui {
 class MainWindow;
@@ -14,13 +15,14 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    
+    void reLoadCamViews();
+
 private slots:
     void on_actionAddCamera_triggered();
 
 private:
     Ui::MainWindow *ui;
-    void reLoadCamViews();
+    AppControl appCtrl;
 };
 
 #endif // MAINWINDOW_H

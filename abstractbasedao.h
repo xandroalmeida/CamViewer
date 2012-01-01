@@ -6,7 +6,7 @@
 #include <QStringList>
 #include <QList>
 #include <QUuid>
-#include <QSharedPointer>
+#include <QScopedPointer>
 #include <QDebug>
 
 template <class T>
@@ -24,10 +24,10 @@ protected:
         return settings;
     }
 
-    QSettings* findGroup(QString& group)
+    QSettings* findGroup(QString group)
 
     {
-        QSharedPointer<QSettings> settings(openSettings());
+        QSettings* settings = openSettings();
         QStringList children = settings->childGroups();
         if (children.contains(group))
         {
@@ -35,6 +35,7 @@ protected:
             return settings;
         }
 
+        delete settings;
         return NULL;
     }
 
@@ -43,14 +44,14 @@ public:
     void create(T& t)
     {
         t.setUuid();
-        QSharedPointer<QSettings> settings(openSettings());
+        QScopedPointer<QSettings> settings(openSettings());
         settings->beginGroup(t.uuid());
         write(t, settings.data());
     }
 
     T read(QUuid &uuid)
     {
-        QSharedPointer<QSettings> settings(findGroup(uuid.toString()));
+        QScopedPointer<QSettings> settings(findGroup(uuid.toString()));
         if (settings != NULL)
         {
             T t = read(settings);
@@ -63,10 +64,10 @@ public:
 
     bool update(T& t)
     {
-        QSharedPointer<QSettings> settings(findGroup(t.uuid().toString()));
+        QScopedPointer<QSettings> settings(findGroup(t.uuid().toString()));
         if (settings != NULL)
         {
-            write(t, settings);
+            write(t, settings.data());
             return true;
         }
         return false;
@@ -74,7 +75,7 @@ public:
 
     bool remove(T& t)
     {
-        QSharedPointer<QSettings> settings(findGroup(t.uuid().toString()));
+        QScopedPointer<QSettings> settings(findGroup(t.uuid().toString()));
         if (settings != NULL)
         {
             settings->remove("");
@@ -88,7 +89,7 @@ public:
     {
         QList<T> list;
 
-        QSharedPointer<QSettings> settings(openSettings());
+        QScopedPointer<QSettings> settings(openSettings());
 
         QStringList children = settings->childGroups();
 

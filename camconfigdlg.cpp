@@ -3,11 +3,20 @@
 #include "repositoryfactory.h"
 #include "camconfigdao.h"
 
-CamConfigDlg::CamConfigDlg(QWidget *parent) :
+CamConfigDlg::CamConfigDlg(CamConfig *cfg, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::CamConfigDlg)
+    ui(new Ui::CamConfigDlg),
+    m_uuid()
 {
     ui->setupUi(this);
+
+    if (cfg) {
+        ui->edtName->setText(cfg->name());
+        ui->spbPort->setValue(cfg->port());
+        ui->edtUrl->setText(cfg->url());
+        ui->chbRecord->setChecked(cfg->record());
+        m_uuid = cfg->uuid();
+    }
 }
 
 CamConfigDlg::~CamConfigDlg()
@@ -23,5 +32,12 @@ void CamConfigDlg::on_buttonBox_accepted()
     config.setPort(ui->spbPort->value());
     config.setUrl(ui->edtUrl->text());
     config.setRecord(ui->chbRecord->isChecked());
-    repository->create(config);
+    if (m_uuid.isNull())
+    {
+        repository->create(config);
+    } else {
+        config.setUuid(m_uuid);
+        bool ret = repository->update(config);
+        qDebug() << "CamConfigDlg::on_buttonBox_accepted() update" << ret;
+    }
 }

@@ -5,11 +5,12 @@
 #include "repositoryfactory.h"
 #include <cmath>
 #include <QDebug>
-#include <QSharedPointer>
+#include <QScopedPointer>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    appCtrl(this)
 {
     ui->setupUi(this);
     reLoadCamViews();
@@ -29,7 +30,7 @@ void MainWindow::reLoadCamViews()
         delete child;
     }
 
-    QSharedPointer<CamConfigDAO> dao(RepositoryFactory::getCamConfigDAO());
+    QScopedPointer<CamConfigDAO> dao(RepositoryFactory::getCamConfigDAO());
     QList<CamConfig> camConfigs = dao->listAll();
 
     int cols = std::sqrt(camConfigs.size());
@@ -37,7 +38,7 @@ void MainWindow::reLoadCamViews()
     {
         int col = i / cols;
         int row = i % cols;
-        ui->centralLayout->addWidget(new CamViewFrame(camConfigs.at(i), this), row, col, 1, 1);
+        ui->centralLayout->addWidget(new CamViewFrame(camConfigs.at(i),&appCtrl, this), row, col, 1, 1);
     }
 
 }

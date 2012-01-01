@@ -4,11 +4,15 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+OPENCV_HOME = C:\\opt\\opencv_mingw32\\install
+BOOST_HOME =C:\\opt\\boost_1_48_0
+
+QT       += core gui opengl
 
 TARGET = CamViewer
 TEMPLATE = app
 
+#DEFINES += -D_WIN32_WINNT=0x0501
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -18,7 +22,11 @@ SOURCES += main.cpp\
     camconfigdao.cpp \
     repositoryfactory.cpp \
     camviewframe.cpp \
-    abstractbasedao.cpp
+    abstractbasedao.cpp \
+    appcontrol.cpp \
+    glwidget.cpp \
+    camcapturethread.cpp \
+    mjpegcapture.cpp
 
 HEADERS  += mainwindow.h \
     camconfig.h \
@@ -27,7 +35,11 @@ HEADERS  += mainwindow.h \
     repositoryfactory.h \
     camconfigdao.h \
     camviewframe.h \
-    abstractbasedao.h
+    abstractbasedao.h \
+    appcontrol.h \
+    glwidget.h \
+    camcapturethread.h \
+    mjpegcapture.h
 
 FORMS    += mainwindow.ui \
     camconfigdlg.ui \
@@ -36,3 +48,26 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     icons.qrc
+
+INCLUDEPATH += $$OPENCV_HOME\\include
+INCLUDEPATH += $$BOOST_HOME
+
+LIBS += $$OPENCV_HOME\\lib\\libopencv_core231.a \
+        $$OPENCV_HOME\\lib\\libopencv_highgui231.a \
+        $$OPENCV_HOME\\lib\\libopencv_imgproc231.a \
+        $$OPENCV_HOME\\lib\\libopencv_video231.a \
+        $$OPENCV_HOME\\lib\\libopencv_contrib231.a \
+        $$OPENCV_HOME\\share\\OpenCV\\3rdparty\\lib\\liblibjasper.a \
+        $$OPENCV_HOME\\share\\OpenCV\\3rdparty\\lib\\liblibpng.a \
+        $$OPENCV_HOME\\share\\OpenCV\\3rdparty\\lib\\liblibtiff.a \
+        $$OPENCV_HOME\\share\\OpenCV\\3rdparty\\lib\\liblibjpeg.a
+
+LIBS += $$BOOST_HOME\\stage-mingw32\\lib\\libboost_iostreams-mgw44-mt-1_48.a \
+        $$BOOST_HOME\\stage-mingw32\\lib\\libboost_system-mgw44-mt-1_48.a \
+        $$BOOST_HOME\\stage-mingw32\\lib\\libboost_filesystem-mgw44-mt-1_48.a
+
+LIBS += C:\\QtSDK\\mingw\\lib\\libws2_32.a
+
+
+
+

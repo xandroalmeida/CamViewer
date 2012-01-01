@@ -11,10 +11,17 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string notr="true">CamViewer</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="centralLayout"/>
+   <layout class="QGridLayout" name="centralLayout">
+    <property name="margin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -22,7 +29,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>18</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -63,7 +70,7 @@
   <action name="actionHelp">
    <property name="icon">
     <iconset resource="icons.qrc">
-     <normaloff>:/icons/Help.png</normaloff>:/icons/Help.png</iconset>
+     <normaloff>:/icons/Info.png</normaloff>:/icons/Info.png</iconset>
    </property>
    <property name="text">
     <string>Help</string>
@@ -75,7 +82,7 @@
   <action name="actionCOnfig">
    <property name="icon">
     <iconset resource="icons.qrc">
-     <normaloff>:/icons/Wrench.png</normaloff>:/icons/Wrench.png</iconset>
+     <normaloff>:/icons/Preferences.png</normaloff>:/icons/Preferences.png</iconset>
    </property>
    <property name="text">
     <string>Config</string>

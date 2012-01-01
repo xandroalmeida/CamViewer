@@ -1,6 +1,5 @@
 #ifndef REPOSITORYFACTORY_H
 #define REPOSITORYFACTORY_H
-#include<QSharedPointer>
 #include "camconfigdao.h"
 
 class RepositoryFactory
