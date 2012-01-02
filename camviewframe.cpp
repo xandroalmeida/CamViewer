@@ -51,9 +51,9 @@ CamViewFrame::~CamViewFrame()
         m_CamCapture->finish();
 
         //Espera 200ms para a thread parar
-        if (!m_CamCapture->wait(200))
+        if (!m_CamCapture->wait(900))
         {
-            qDebug() << "terminate thread " << m_CamCapture->objectName();
+            qDebug() << "forcing terminate thread " << m_CamCapture->objectName();
             //Bem..., pedimos educadamente, não deu certo, então paulada! :-)
             m_CamCapture->terminate();
         }

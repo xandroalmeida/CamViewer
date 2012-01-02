@@ -19,6 +19,7 @@ protected:
     virtual void resizeGL(int width, int height);
 
 private:
+    Qt::AspectRatioMode m_aspectRatioMode;
     QImage m_GLFrame;
 };
 

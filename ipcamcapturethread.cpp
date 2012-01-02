@@ -22,6 +22,7 @@ void IpCamCaptureThread::run()
         }
         msleep(500);
     }
+
     while (!this->m_finish)
     {
         Mat original;
