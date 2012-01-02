@@ -30,9 +30,8 @@ signals:
 private:
     AppControl *m_appCtrl;
     Ui::CamViewFrame *ui;
-    CamCaptureThread m_CamCapture;
     CamConfig m_camConfig;
-
+    CamCaptureThread* m_CamCapture;
 };
 
 #endif // CAMVIEWFRAME_H

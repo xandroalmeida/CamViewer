@@ -26,7 +26,9 @@ SOURCES += main.cpp\
     appcontrol.cpp \
     glwidget.cpp \
     camcapturethread.cpp \
-    mjpegcapture.cpp
+    mjpegcapture.cpp \
+    localcamcapturethread.cpp \
+    ipcamcapturethread.cpp
 
 HEADERS  += mainwindow.h \
     camconfig.h \
@@ -39,7 +41,9 @@ HEADERS  += mainwindow.h \
     appcontrol.h \
     glwidget.h \
     camcapturethread.h \
-    mjpegcapture.h
+    mjpegcapture.h \
+    localcamcapturethread.h \
+    ipcamcapturethread.h
 
 FORMS    += mainwindow.ui \
     camconfigdlg.ui \
@@ -66,7 +70,18 @@ LIBS += $$BOOST_HOME\\stage-mingw32\\lib\\libboost_iostreams-mgw44-mt-1_48.a \
         $$BOOST_HOME\\stage-mingw32\\lib\\libboost_system-mgw44-mt-1_48.a \
         $$BOOST_HOME\\stage-mingw32\\lib\\libboost_filesystem-mgw44-mt-1_48.a
 
-LIBS += C:\\QtSDK\\mingw\\lib\\libws2_32.a
+LIBS += C:\\QtSDK\\mingw\\lib\\libws2_32.a \
+        C:\\QtSDK\\mingw\\lib\\libgdi32.a \
+        C:\\QtSDK\\mingw\\lib\\libcomctl32.a \
+        C:\\QtSDK\\mingw\\lib\\libcomdlg32.a \
+        C:\\QtSDK\\mingw\\lib\\libuuid.a \
+        C:\\QtSDK\\mingw\\lib\\liboleaut32.a \
+        C:\\QtSDK\\mingw\\lib\\libole32.a \
+        C:\\QtSDK\\mingw\\lib\\libavifil32.a \
+        C:\\QtSDK\\mingw\\lib\\libavicap32.a \
+        C:\\QtSDK\\mingw\\lib\\libvfw32.a \
+
+
 
 
 

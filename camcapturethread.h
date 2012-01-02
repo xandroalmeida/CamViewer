@@ -14,8 +14,6 @@ signals:
     void update_image(QImage img);
 
 protected:
-    virtual void run();
-private:
     bool m_finish;
 public slots:
 
