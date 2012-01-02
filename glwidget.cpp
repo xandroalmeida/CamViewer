@@ -6,6 +6,7 @@ GLWidget::GLWidget(QWidget * parent) :
 {
     qDebug() << "QGLFormat::hasOpenGL ()" << QGLFormat::hasOpenGL();
     m_aspectRatioMode = Qt::KeepAspectRatio;
+    this->waitingUpdate = false;
 }
 
 GLWidget::~GLWidget()
@@ -15,8 +16,14 @@ GLWidget::~GLWidget()
 
 void GLWidget::renderImage(QImage frame)
 {
-    m_GLFrame = QGLWidget::convertToGLFormat(frame);
-    this->updateGL();
+    if (!this->waitingUpdate)
+    {
+        m_GLFrame = QGLWidget::convertToGLFormat(frame);
+        this->waitingUpdate = true;
+        this->updateGL();
+    } else {
+        qDebug() << "skiping";
+    }
 }
 
 void GLWidget::resizeGL(int width, int height)
@@ -51,5 +58,6 @@ void GLWidget::paintGL() {
         glDisable(GL_TEXTURE_2D);
 
         glFlush();
+        this->waitingUpdate = false;
     }
 }

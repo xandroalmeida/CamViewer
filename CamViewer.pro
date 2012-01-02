@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     camcapturethread.cpp \
     mjpegcapture.cpp \
     localcamcapturethread.cpp \
-    ipcamcapturethread.cpp
+    ipcamcapturethread.cpp \
+    videowriterthread.cpp
 
 HEADERS  += mainwindow.h \
     camconfig.h \
@@ -44,7 +45,8 @@ HEADERS  += mainwindow.h \
     camcapturethread.h \
     mjpegcapture.h \
     localcamcapturethread.h \
-    ipcamcapturethread.h
+    ipcamcapturethread.h \
+    videowriterthread.h
 
 FORMS    += mainwindow.ui \
     camconfigdlg.ui \

@@ -21,6 +21,7 @@ protected:
 private:
     Qt::AspectRatioMode m_aspectRatioMode;
     QImage m_GLFrame;
+    bool waitingUpdate;
 };
 
 #endif // GLWIDGET_H

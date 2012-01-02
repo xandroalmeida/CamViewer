@@ -4,6 +4,8 @@
 
 using namespace cv;
 
+//http://www.programmersheaven.com/2/time-fps
+
 LocalCamCaptureThread::LocalCamCaptureThread(CamConfig camConfig, QObject *parent) :
     CamCaptureThread(camConfig, parent)
 {
@@ -31,14 +33,18 @@ void LocalCamCaptureThread::run()
     {
         qDebug() << "Local camera opened ";
         Mat original;
+        QElapsedTimer timer;
         while (!this->m_finish)
         {
-            QElapsedTimer timer;
-            timer.start();
+            timer.restart();
             cap >> original;
-
+            qDebug() << ">>" << timer.elapsed();
             processImage(original);
+            qDebug() << "processImage" << timer.elapsed();
+
+
             int ts = 67-timer.elapsed();
+            qDebug() << ts;
             if (ts > 0)
             {
                 msleep(ts);
