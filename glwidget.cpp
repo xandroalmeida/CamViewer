@@ -36,7 +36,7 @@ void GLWidget::paintGL() {
     glClear (GL_COLOR_BUFFER_BIT);
     glClearColor (0.0, 0.0, 0.0, 1.0);
     if (!m_GLFrame.isNull()) {
-        m_GLFrame = m_GLFrame.scaled(this->size(), m_aspectRatioMode, Qt::FastTransformation);
+        m_GLFrame = m_GLFrame.scaled(this->size(), m_aspectRatioMode, Qt::SmoothTransformation);
 
         glEnable(GL_TEXTURE_2D);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);

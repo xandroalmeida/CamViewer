@@ -5,6 +5,10 @@
 #include <QImage>
 #include <QDateTime>
 #include "camconfig.h"
+#include <QElapsedTimer>
+
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
 
 /**
   Classe Abstrata que serve como interface para o ViewFrame se comunicar com as diferentes
@@ -16,6 +20,7 @@ class CamCaptureThread : public QThread
     Q_OBJECT
 public:
     CamCaptureThread(CamConfig camConfig, QObject *parent = 0);
+    virtual ~CamCaptureThread();
     void finish();
 signals:
     void update_image(QImage img);
@@ -23,9 +28,10 @@ signals:
 protected:
     bool m_finish;
     CamConfig m_camConfig;
-    QString getTimeStamp();
-    void processImage(QImage& image);
+    cv::VideoWriter m_videoWriter;
 
+    QString getTimeStamp();
+    void processImage(cv::Mat& original);
 
 public slots:
 

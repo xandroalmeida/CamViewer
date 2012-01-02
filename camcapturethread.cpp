@@ -6,8 +6,16 @@
 CamCaptureThread::CamCaptureThread(CamConfig camConfig, QObject *parent) :
     QThread(parent),
     m_finish(false),
-    m_camConfig(camConfig)
+    m_camConfig(camConfig),
+    m_videoWriter()
 {
+}
+
+CamCaptureThread::~CamCaptureThread()
+{
+    if (m_videoWriter.isOpened())
+    {
+    }
 }
 
 void CamCaptureThread::finish()
@@ -22,16 +30,31 @@ QString CamCaptureThread::getTimeStamp()
     return now.toString("dd-MM-yyyy hh:mm:ss:zzz");
 }
 
-void CamCaptureThread::processImage(QImage& image)
+void CamCaptureThread::processImage(cv::Mat& original)
 {
-    QPainter painter(&image);
-    painter.setCompositionMode(QPainter::CompositionMode_Source);
-    painter.setFont(QFont("Arial", 12));
-    painter.setPen(Qt::yellow);
-
     QString strTimeStamp = getTimeStamp();
-    QFontMetrics fm = painter.fontMetrics();
-    painter.drawText(image.height() - (fm.width(strTimeStamp)/2),image.height()-(fm.height()/2), strTimeStamp);
+    int width = original.size().width;
+    int height = original.size().height;
+
+    cv::putText(original, strTimeStamp.toStdString(), cv::Point(width-445,height-15), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(255,255,255));
+
+    QImage image(original.data, original.size().width, original.size().height, original.step, QImage::Format_RGB888);
+    image = image.rgbSwapped();
+
+
+    if (!m_videoWriter.isOpened())
+    {
+        cv::Size size;
+        size.width = image.width();
+        size.height = image.height();
+        QString fileName = m_camConfig.name();
+        fileName.append(QDateTime::currentDateTime().toString("dd-MM-yyyy_hh-mm-ss-zzz"));
+        fileName.append(".avi");
+        m_videoWriter.open(fileName.toStdString(), CV_FOURCC('M', 'P', '4', '2'), 15,size, true);
+        qDebug() << "opened " << fileName;
+    }
+
+    m_videoWriter << original;
 
     emit update_image(image);
 }

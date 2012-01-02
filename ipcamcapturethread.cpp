@@ -20,17 +20,16 @@ void IpCamCaptureThread::run()
             qDebug() << e.what();
 
         }
-        msleep(500);
+
+        msleep(1000/15);
     }
 
     while (!this->m_finish)
     {
         Mat original;
         cap >> original;
-        QImage image(original.data, original.size().width, original.size().height, original.step, QImage::Format_RGB888);
-        image = image.rgbSwapped();
 
-        processImage(image);
+        processImage(original);
         msleep(100);
     }
 }

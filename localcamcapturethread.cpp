@@ -2,9 +2,6 @@
 #include <qgl.h>
 #include <QDebug>
 
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
-
 using namespace cv;
 
 LocalCamCaptureThread::LocalCamCaptureThread(CamConfig camConfig, QObject *parent) :
@@ -36,13 +33,16 @@ void LocalCamCaptureThread::run()
         Mat original;
         while (!this->m_finish)
         {
+            QElapsedTimer timer;
+            timer.start();
             cap >> original;
 
-            QImage image(original.data, original.size().width, original.size().height, original.step, QImage::Format_RGB888);
-            image = image.rgbSwapped();
-
-            processImage(image);
-            msleep(33);
+            processImage(original);
+            int ts = 67-timer.elapsed();
+            if (ts > 0)
+            {
+                msleep(ts);
+            }
         }
     } else {
         qDebug() << "Error on open local camera" << m_camConfig.port();
