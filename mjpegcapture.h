@@ -13,6 +13,7 @@ public:
     MjpegCapture(const char* host, std::string port, const char* path);
     virtual ~MjpegCapture();
     bool Open();
+    bool IsOpened();
     void Close();
     virtual MjpegCapture& operator >> (cv::Mat& image);
 
@@ -35,6 +36,7 @@ private:
     boost::asio::ip::tcp::socket socket;
     boost::asio::streambuf buffer;
 
+    bool m_isopened;
 };
 
 #endif // MJPEGCAPTURE_H

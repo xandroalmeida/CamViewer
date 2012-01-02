@@ -3,11 +3,14 @@
 
 #include "camcapturethread.h"
 
+/**
+  Implementação especializada responsável por obter videos de cameras do ti IP
+  **/
 class IpCamCaptureThread : public CamCaptureThread
 {
     Q_OBJECT
 public:
-    explicit IpCamCaptureThread(QObject *parent = 0);
+    IpCamCaptureThread(CamConfig camConfig, QObject *parent = 0);
     virtual void run();
 
 };

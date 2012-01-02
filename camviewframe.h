@@ -10,6 +10,10 @@ namespace Ui {
 class CamViewFrame;
 }
 
+/**
+  Esta classe é responsável por exibir o video da camera e caputurar as acoes do usuário em relação
+    a este video.
+  **/
 class CamViewFrame : public QFrame
 {
     Q_OBJECT

@@ -14,7 +14,6 @@ GLWidget::~GLWidget()
 
 void GLWidget::renderImage(QImage frame)
 {
-    qDebug() << "GLWidget::renderImage";
     m_GLFrame = QGLWidget::convertToGLFormat(frame);
     this->updateGL();
 }

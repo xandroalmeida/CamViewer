@@ -4,6 +4,9 @@
 #include <QString>
 #include <QUuid>
 
+/**
+  Classe de VO que guarda asconfiguraçoes de cada camera.
+  **/
 class CamConfig
 {
 public:

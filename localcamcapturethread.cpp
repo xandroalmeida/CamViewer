@@ -7,34 +7,44 @@
 
 using namespace cv;
 
-LocalCamCaptureThread::LocalCamCaptureThread(QObject *parent, int port) :
-    CamCaptureThread(parent),
-    m_port(port)
+LocalCamCaptureThread::LocalCamCaptureThread(CamConfig camConfig, QObject *parent) :
+    CamCaptureThread(camConfig, parent)
 {
 }
 
 void LocalCamCaptureThread::run()
 {
-    qDebug() << "LocalCamCaptureThread::run()" << m_port;
+    qDebug() << "LocalCamCaptureThread::run()" << m_camConfig.port();
     VideoCapture cap;
-    cap.open(m_port);
+    while (!cap.open(m_camConfig.port()) && !this->m_finish)
+    {
+        QImage image(640, 320, QImage::Format_RGB888);
+        QPainter painter(&image);
+        painter.setCompositionMode(QPainter::CompositionMode_Source);
+        painter.fillRect(image.rect(), Qt::red);
+
+        painter.setFont(QFont("Arial", 30));
+        painter.drawText(50,50, "Error on open local camera");
+
+        emit update_image(image);
+        msleep(100);
+    }
+
     if (cap.isOpened())
     {
-        qDebug() << "Local camerar opened ";
-        Mat img;
+        qDebug() << "Local camera opened ";
+        Mat original;
         while (!this->m_finish)
         {
-            Mat original;
             cap >> original;
 
-            qDebug() << QString((char*)original.data);
             QImage image(original.data, original.size().width, original.size().height, original.step, QImage::Format_RGB888);
             image = image.rgbSwapped();
 
             emit update_image(image);
-            msleep(20);
+            msleep(33);
         }
     } else {
-        qDebug() << "Erro ao abir local camera";
+        qDebug() << "Error on open local camera" << m_camConfig.port();
     }
 }

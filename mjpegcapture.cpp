@@ -38,7 +38,7 @@ private:
 MjpegCapture::MjpegCapture(const char* host, std::string port, const char* path):
     m_host(host), m_port(port), m_path(path), io_service(), resolver(io_service), socket(io_service)
 {
-
+    m_isopened = false;
 }
 
 MjpegCapture::~MjpegCapture()
@@ -149,7 +149,7 @@ string MjpegCapture::GetFrame()
 
 bool MjpegCapture::Open()
 {
-    bool hRet = false;
+    bool m_isOpened = false;
     boost::asio::ip::tcp::resolver::query query(m_host, m_port);
     boost::asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
     boost::asio::connect(socket, endpoint_iterator);
@@ -161,6 +161,11 @@ bool MjpegCapture::Open()
     response = ReadUntil(";boundary=");
     boundary = ReadLine();
 
-    hRet = true;
-    return  hRet;
+    m_isOpened = true;
+    return  m_isOpened;
+}
+
+bool MjpegCapture::IsOpened()
+{
+    return m_isopened;
 }

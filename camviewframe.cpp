@@ -26,10 +26,10 @@ CamViewFrame::CamViewFrame(const CamConfig& camConfig, AppControl *appCtrl, QWid
 
     if (m_camConfig.url().indexOf(localCameraExp) >= 0)
     {
-        m_CamCapture = new LocalCamCaptureThread(this, m_camConfig.port());
+        m_CamCapture = new LocalCamCaptureThread(m_camConfig, this);
     } else if (m_camConfig.url().indexOf(ipCameraExp) >= 0)
     {
-        m_CamCapture = new IpCamCaptureThread(this);
+        m_CamCapture = new IpCamCaptureThread(camConfig, this);
 
     }
 

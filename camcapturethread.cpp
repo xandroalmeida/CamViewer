@@ -1,9 +1,10 @@
 #include "camcapturethread.h"
 #include <QDebug>
 
-CamCaptureThread::CamCaptureThread(QObject *parent) :
+CamCaptureThread::CamCaptureThread(CamConfig camConfig, QObject *parent) :
     QThread(parent),
-    m_finish(false)
+    m_finish(false),
+    m_camConfig(camConfig)
 {
 }
 

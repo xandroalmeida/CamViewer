@@ -7,10 +7,8 @@ class LocalCamCaptureThread : public CamCaptureThread
 {
     Q_OBJECT
 public:
-    explicit LocalCamCaptureThread(QObject *parent = 0, int port = 0);
+    LocalCamCaptureThread(CamConfig camConfig, QObject *parent = 0);
     virtual void run();
-private:
-    int m_port;
 
 };
 
