@@ -41,7 +41,7 @@ void LocalCamCaptureThread::run()
             QImage image(original.data, original.size().width, original.size().height, original.step, QImage::Format_RGB888);
             image = image.rgbSwapped();
 
-            emit update_image(image);
+            processImage(image);
             msleep(33);
         }
     } else {

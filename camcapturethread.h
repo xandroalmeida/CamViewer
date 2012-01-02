@@ -23,6 +23,10 @@ signals:
 protected:
     bool m_finish;
     CamConfig m_camConfig;
+    QString getTimeStamp();
+    void processImage(QImage& image);
+
+
 public slots:
 
 };
