@@ -7,6 +7,9 @@
 #include <QDebug>
 #include <QScopedPointer>
 
+#define gridCol(i, cols) ((i)/(cols));
+#define gridRow(i, cols) ((i)%(cols));
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -36,14 +39,14 @@ void MainWindow::reLoadCamViews()
     int cols = std::sqrt(camConfigs.size());
     for (int i = 0; i < camConfigs.size(); i++)
     {
-        int col = i / cols;
-        int row = i % cols;
+        int col = gridCol(i, cols);
+        int row = gridRow(i, cols);
         ui->centralLayout->addWidget(new CamViewFrame(camConfigs.at(i),&appCtrl, this), row, col, 1, 1);
     }
 
 }
 
-void MainWindow::on_actionAddCamera_triggered()
+void MainWindow::on_btnAddCamera_clicked()
 {
     CamConfigDlg dlg;
     if (dlg.exec() == QDialog::Accepted)

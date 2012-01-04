@@ -22,7 +22,7 @@ CamViewFrame::CamViewFrame(const CamConfig& camConfig, AppControl *appCtrl, QWid
     ui->lblTitle->setText(this->m_camConfig.name());
 
     connect(this, SIGNAL(btnEdit_clicked(CamConfig*)), m_appCtrl, SLOT(on_camviewframe_edit(CamConfig*)));
-    connect(this, SIGNAL(btnDelete_clicked(CamConfig*)), m_appCtrl, SLOT(on_camviewframe_delete(CamConfig*)));
+    connect(this, SIGNAL(btnClose_clicked(CamConfig*)), m_appCtrl, SLOT(on_camviewframe_close(CamConfig*)));
 
     CamCapture* camCapture;
 
@@ -67,9 +67,9 @@ CamViewFrame::~CamViewFrame()
     delete ui;
 }
 
-void CamViewFrame::on_btnDelete_clicked()
+void CamViewFrame::on_btnClose_clicked()
 {
-    emit btnDelete_clicked(&m_camConfig);
+    emit btnClose_clicked(&m_camConfig);
 }
 
 void CamViewFrame::on_btnEdit_clicked()

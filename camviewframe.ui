@@ -51,20 +51,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnDelete">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/Minus.png</normaloff>:/icons/Minus.png</iconset>
-       </property>
-       <property name="flat">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="btnEdit">
        <property name="text">
         <string/>
@@ -79,19 +65,13 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnHide">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
+      <widget class="QPushButton" name="btnClose">
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="icons.qrc">
-         <normaloff>:/icons/Cross.png</normaloff>:/icons/Cross.png</iconset>
+         <normaloff>:/icons/Minus.png</normaloff>:/icons/Minus.png</iconset>
        </property>
        <property name="flat">
         <bool>true</bool>

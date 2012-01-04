@@ -12,6 +12,12 @@ LocalCamCapture::LocalCamCapture(CamConfig camConfig) :
 {
 }
 
+LocalCamCapture::~LocalCamCapture()
+{
+    qDebug() << "LocalCamCapture::~LocalCamCapture()";
+    Close();
+}
+
 bool LocalCamCapture::Open()
 {
     return videoCapture.open(camConfig.port());
@@ -24,7 +30,7 @@ bool LocalCamCapture::IsOpened()
 
 void LocalCamCapture::Close()
 {
-
+    videoCapture.release();
 }
 
 CamCapture& LocalCamCapture::operator >> (cv::Mat& image)

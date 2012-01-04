@@ -15,6 +15,7 @@ CamCaptureThread::CamCaptureThread(CamConfig camConfig, CamCapture* camCapture, 
 
 CamCaptureThread::~CamCaptureThread()
 {
+    qDebug() << "CamCaptureThread::~CamCaptureThread()";
     if (camCapture)
     {
         if (camCapture->IsOpened())
@@ -28,9 +29,14 @@ CamCaptureThread::~CamCaptureThread()
 
 void CamCaptureThread::run()
 {
-    if (!camCapture->Open())
+    while (!camCapture->IsOpened())
     {
+        if (camCapture->Open())
+        {
+            break;
+        }
         qDebug() << "Error on try to open camera";
+        msleep(500);
     }
 
     cv::Mat image;

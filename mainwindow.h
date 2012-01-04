@@ -18,7 +18,7 @@ public:
     void reLoadCamViews();
 
 private slots:
-    void on_actionAddCamera_triggered();
+    void on_btnAddCamera_clicked();
 
 private:
     Ui::MainWindow *ui;

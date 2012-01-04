@@ -7,6 +7,8 @@ class LocalCamCapture : public CamCapture
 {
 public:
     LocalCamCapture(CamConfig camConfig);
+    virtual ~LocalCamCapture();
+
     virtual bool Open();
     virtual bool IsOpened();
     virtual void Close();

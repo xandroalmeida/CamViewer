@@ -23,15 +23,14 @@ class CamViewFrame : public QFrame
     
 public:
     explicit CamViewFrame(const CamConfig& camConfig, AppControl *appCtrl, QWidget *parent = 0);
-    ~CamViewFrame();
+    virtual ~CamViewFrame();
     
 private slots:
-    void on_btnDelete_clicked();
     void on_btnEdit_clicked();
-
+    void on_btnClose_clicked();
 
 signals:
-    void btnDelete_clicked(CamConfig *config);
+    void btnClose_clicked(CamConfig *config);
     void btnEdit_clicked(CamConfig *config);
 
 private:

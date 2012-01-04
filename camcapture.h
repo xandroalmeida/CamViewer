@@ -9,6 +9,7 @@ class CamCapture
 {
 public:
     CamCapture(CamConfig cfg);
+    virtual ~CamCapture();
     virtual bool Open() = 0;
     virtual bool IsOpened() = 0;
     virtual void Close() = 0;

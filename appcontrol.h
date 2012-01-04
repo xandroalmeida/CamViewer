@@ -17,7 +17,7 @@ signals:
 
 public slots:
     void on_camviewframe_edit(CamConfig *cfg);
-    void on_camviewframe_delete(CamConfig *cfg);
+    void on_camviewframe_close(CamConfig *cfg);
 private:
     MainWindow *mainWindow;
 
