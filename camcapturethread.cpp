@@ -2,19 +2,36 @@
 #include <QDebug>
 #include <QDateTime>
 #include <QPainter>
+#include <QScopedPointer>
 
-CamCaptureThread::CamCaptureThread(CamConfig camConfig, QObject *parent) :
+CamCaptureThread::CamCaptureThread(CamConfig camConfig, CamCapture* camCapture, QObject *parent) :
     QThread(parent),
     m_finish(false),
     m_camConfig(camConfig),
     m_videoWriter()
 {
+    this->camCapture = camCapture;
+    qDebug() << "CamCaptureThread constructed";
 }
 
 CamCaptureThread::~CamCaptureThread()
 {
-    if (m_videoWriter.isOpened())
+    if (camCapture)
     {
+        delete camCapture;
+        camCapture = 0;
+    }
+}
+
+void CamCaptureThread::run()
+{
+    camCapture->Open();
+    cv::Mat image;
+    while (!m_finish)
+    {
+        (*camCapture) >> image;
+        processImage(image);
+        sleep(100);
     }
 }
 
@@ -42,7 +59,7 @@ void CamCaptureThread::processImage(cv::Mat& original)
     image = image.rgbSwapped();
 
 
-    if (!m_videoWriter.isOpened())
+    if (false && !m_videoWriter.isOpened())
     {
         cv::Size size;
         size.width = image.width();
@@ -54,7 +71,7 @@ void CamCaptureThread::processImage(cv::Mat& original)
         qDebug() << "opened " << fileName;
     }
 
-    m_videoWriter << original;
+    //m_videoWriter << original;
 
     emit update_image(image);
 }

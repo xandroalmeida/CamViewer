@@ -6,6 +6,7 @@
 #include <QDateTime>
 #include "camconfig.h"
 #include <QElapsedTimer>
+#include "camcapture.h"
 
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
@@ -19,13 +20,18 @@ class CamCaptureThread : public QThread
 {
     Q_OBJECT
 public:
-    CamCaptureThread(CamConfig camConfig, QObject *parent = 0);
+    CamCaptureThread(CamConfig camConfig, CamCapture* camCapture, QObject *parent = 0);
     virtual ~CamCaptureThread();
     void finish();
 signals:
     void update_image(QImage img);
 
 protected:
+    virtual void run();
+
+private:
+    CamCapture* camCapture;
+
     bool m_finish;
     CamConfig m_camConfig;
     cv::VideoWriter m_videoWriter;

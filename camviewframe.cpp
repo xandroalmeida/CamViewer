@@ -2,16 +2,17 @@
 #include "ui_camviewframe.h"
 #include <QRegExp>
 #include <QDebug>
-#include "localcamcapturethread.h"
-#include "ipcamcapturethread.h"
-
+#include "localcamcapture.h"
+#include "ipcamcapture.h"
+#include <QScopedPointer>
 
 CamViewFrame::CamViewFrame(const CamConfig& camConfig, AppControl *appCtrl, QWidget *parent) :
     QFrame(parent),
     ui(new Ui::CamViewFrame),
     m_camConfig(camConfig)
 {
-    m_CamCapture = 0;
+    camCaptureThread = 0;
+
     QRegExp localCameraExp("^local$");
     QRegExp ipCameraExp("^http://(.*)$");
 
@@ -19,25 +20,25 @@ CamViewFrame::CamViewFrame(const CamConfig& camConfig, AppControl *appCtrl, QWid
     m_appCtrl = appCtrl;
     ui->lblTitle->setText(this->m_camConfig.name());
 
-
     connect(this, SIGNAL(btnEdit_clicked(CamConfig*)), m_appCtrl, SLOT(on_camviewframe_edit(CamConfig*)));
     connect(this, SIGNAL(btnDelete_clicked(CamConfig*)), m_appCtrl, SLOT(on_camviewframe_delete(CamConfig*)));
 
+    CamCapture* camCapture;
 
     if (m_camConfig.url().indexOf(localCameraExp) >= 0)
     {
-        m_CamCapture = new LocalCamCaptureThread(m_camConfig, this);
+        camCapture = new LocalCamCapture(m_camConfig);
     } else if (m_camConfig.url().indexOf(ipCameraExp) >= 0)
     {
-        m_CamCapture = new IpCamCaptureThread(camConfig, this);
+        camCapture = new IpCamCapture(camConfig);
 
     }
 
-    if (m_CamCapture)
+    if (camCapture)
     {
-        m_CamCapture->setObjectName(m_camConfig.name());
-        connect(m_CamCapture, SIGNAL(update_image(QImage)), ui->glWidget, SLOT(renderImage(QImage)));
-        m_CamCapture->start();
+        camCaptureThread = new CamCaptureThread(m_camConfig, camCapture, this);
+        this->camCaptureThread->start();
+        connect(camCaptureThread, SIGNAL(update_image(QImage)), ui->glWidget, SLOT(renderImage(QImage)));
     } else {
         qDebug() << "Camera id" << m_camConfig.uuid() << "Invalid url" << m_camConfig.url();
     }
@@ -45,22 +46,20 @@ CamViewFrame::CamViewFrame(const CamConfig& camConfig, AppControl *appCtrl, QWid
 
 CamViewFrame::~CamViewFrame()
 {
-    if (m_CamCapture)
+    //Pede educadamente para a thread parar
+    camCaptureThread->finish();
+
+    //Espera 200ms para a thread parar
+    if (!camCaptureThread->wait(900))
     {
-        //Pede educadamente para a thread parar
-        m_CamCapture->finish();
-
-        //Espera 200ms para a thread parar
-        if (!m_CamCapture->wait(900))
-        {
-            qDebug() << "forcing terminate thread " << m_CamCapture->objectName();
-            //Bem..., pedimos educadamente, não deu certo, então paulada! :-)
-            m_CamCapture->terminate();
-        }
-
-        delete m_CamCapture;
-        m_CamCapture = 0;
+        qDebug() << "forcing terminate thread " << camCaptureThread->objectName();
+        //Bem..., pedimos educadamente, não deu certo, então paulada! :-)
+        camCaptureThread->terminate();
     }
+
+    delete camCaptureThread;
+    camCaptureThread = 0;
+
     delete ui;
 }
 

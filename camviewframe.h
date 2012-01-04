@@ -4,7 +4,10 @@
 #include <QFrame>
 #include "camconfig.h"
 #include "appcontrol.h"
+#include "camcapture.h"
 #include "camcapturethread.h"
+#include <QScopedPointer>
+
 
 namespace Ui {
 class CamViewFrame;
@@ -35,7 +38,7 @@ private:
     AppControl *m_appCtrl;
     Ui::CamViewFrame *ui;
     CamConfig m_camConfig;
-    CamCaptureThread* m_CamCapture;
+    CamCaptureThread* camCaptureThread;
 };
 
 #endif // CAMVIEWFRAME_H

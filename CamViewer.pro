@@ -13,7 +13,8 @@ QT       += core gui opengl
 TARGET = CamViewer
 TEMPLATE = app
 
-#DEFINES += -D_WIN32_WINNT=0x0501
+DEFINES += _WIN32_WINNT=0x0501
+
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -28,9 +29,10 @@ SOURCES += main.cpp\
     glwidget.cpp \
     camcapturethread.cpp \
     mjpegcapture.cpp \
-    localcamcapturethread.cpp \
-    ipcamcapturethread.cpp \
-    videowriterthread.cpp
+    videowriterthread.cpp \
+    camcapture.cpp \
+    localcamcapture.cpp \
+    ipcamcapture.cpp
 
 HEADERS  += mainwindow.h \
     camconfig.h \
@@ -44,9 +46,10 @@ HEADERS  += mainwindow.h \
     glwidget.h \
     camcapturethread.h \
     mjpegcapture.h \
-    localcamcapturethread.h \
-    ipcamcapturethread.h \
-    videowriterthread.h
+    videowriterthread.h \
+    camcapture.h \
+    localcamcapture.h \
+    ipcamcapture.h
 
 FORMS    += mainwindow.ui \
     camconfigdlg.ui \
