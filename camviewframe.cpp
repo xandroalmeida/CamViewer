@@ -5,6 +5,7 @@
 #include "localcamcapture.h"
 #include "ipcamcapture.h"
 #include <QScopedPointer>
+#include <QElapsedTimer>
 
 CamViewFrame::CamViewFrame(const CamConfig& camConfig, AppControl *appCtrl, QWidget *parent) :
     QFrame(parent),
@@ -46,13 +47,16 @@ CamViewFrame::CamViewFrame(const CamConfig& camConfig, AppControl *appCtrl, QWid
 
 CamViewFrame::~CamViewFrame()
 {
+    QElapsedTimer timer;
     //Pede educadamente para a thread parar
     camCaptureThread->finish();
+    timer.start();
 
+    qDebug() << "waiting thread finish" << timer.elapsed();
     //Espera 200ms para a thread parar
-    if (!camCaptureThread->wait(900))
+    if (!camCaptureThread->wait(500))
     {
-        qDebug() << "forcing terminate thread " << camCaptureThread->objectName();
+        qDebug() << "forcing terminate thread " << timer.elapsed() << camCaptureThread->objectName();
         //Bem..., pedimos educadamente, não deu certo, então paulada! :-)
         camCaptureThread->terminate();
     }

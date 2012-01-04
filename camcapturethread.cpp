@@ -2,7 +2,6 @@
 #include <QDebug>
 #include <QDateTime>
 #include <QPainter>
-#include <QScopedPointer>
 
 CamCaptureThread::CamCaptureThread(CamConfig camConfig, CamCapture* camCapture, QObject *parent) :
     QThread(parent),
@@ -18,6 +17,10 @@ CamCaptureThread::~CamCaptureThread()
 {
     if (camCapture)
     {
+        if (camCapture->IsOpened())
+        {
+            camCapture->Close();
+        }
         delete camCapture;
         camCapture = 0;
     }
@@ -25,14 +28,20 @@ CamCaptureThread::~CamCaptureThread()
 
 void CamCaptureThread::run()
 {
-    camCapture->Open();
+    if (!camCapture->Open())
+    {
+        qDebug() << "Error on try to open camera";
+    }
+
     cv::Mat image;
     while (!m_finish)
     {
         (*camCapture) >> image;
         processImage(image);
-        sleep(100);
+        msleep(100);
     }
+    qDebug() << "CamCaptureThread::run() finished";
+    camCapture->Close();
 }
 
 void CamCaptureThread::finish()
