@@ -53,13 +53,19 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QToolButton" name="btnAddCamera">
+         <widget class="QPushButton" name="btnAddCamera">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="text">
            <string/>
           </property>
           <property name="icon">
            <iconset resource="icons.qrc">
             <normaloff>:/icons/Add.png</normaloff>:/icons/Add.png</iconset>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -102,13 +108,19 @@
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="btnQuit">
+         <widget class="QPushButton" name="btnQuit">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="text">
            <string/>
           </property>
           <property name="icon">
            <iconset resource="icons.qrc">
             <normaloff>:/icons/Cross.png</normaloff>:/icons/Cross.png</iconset>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -142,8 +154,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>163</width>
-           <height>228</height>
+           <width>177</width>
+           <height>224</height>
           </rect>
          </property>
         </widget>
@@ -179,8 +191,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>386</x>
-     <y>12</y>
+     <x>377</x>
+     <y>19</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>

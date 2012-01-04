@@ -25,6 +25,7 @@ CamConfig CamConfigDAO::read(QSettings *settings)
     camConfig.setPort(settings->value("port").toInt());
     camConfig.setUrl(settings->value("url").toString());
     camConfig.setRecord(settings->value("record").toBool());
+    camConfig.setMaximized(settings->value("maximized", false).toBool());
     return camConfig;
 }
 
@@ -34,4 +35,5 @@ void CamConfigDAO::write(CamConfig& t, QSettings *settings)
     settings->setValue("port", t.port());
     settings->setValue("url", t.url());
     settings->setValue("record", t.record());
+    settings->setValue("maximized", t.maximized());
 }

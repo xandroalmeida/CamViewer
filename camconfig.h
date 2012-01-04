@@ -30,12 +30,16 @@ public:
     void setPort(int port) {this->m_port = port;}
     int port() {return this->m_port;}
 
+    void setMaximized(bool maximized) {this->m_maximized = maximized;}
+    bool maximized() {return this->m_maximized;}
+
 private:
     QString m_url;
     QString m_name;
     int     m_port;
     bool    m_record;
     QUuid   m_uuid;
+    bool    m_maximized;
 };
 
 #endif // CAMCONFIG_H
