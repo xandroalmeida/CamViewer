@@ -24,7 +24,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="lblName">
      <property name="text">
       <string>TextLabel</string>
      </property>
@@ -32,20 +32,11 @@
    </item>
    <item>
     <widget class="QLabel" name="label">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>16</horstretch>
-       <verstretch>16</verstretch>
-      </sizepolicy>
-     </property>
      <property name="text">
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="icons.qrc">:/icons/Add.png</pixmap>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
+      <pixmap resource="icons.qrc">:/icons/camvideo.png</pixmap>
      </property>
     </widget>
    </item>

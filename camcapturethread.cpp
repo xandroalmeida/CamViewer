@@ -2,14 +2,29 @@
 #include <QDebug>
 #include <QDateTime>
 #include <QPainter>
+#include <QRegExp>
+#include "localcamcapture.h"
+#include "ipcamcapture.h"
 
-CamCaptureThread::CamCaptureThread(CamConfig camConfig, CamCapture* camCapture, QObject *parent) :
+CamCaptureThread::CamCaptureThread(CamConfig camConfig, QObject *parent) :
     QThread(parent),
     m_finish(false),
     m_camConfig(camConfig),
     m_videoWriter()
 {
-    this->camCapture = camCapture;
+    QRegExp localCameraExp("^local$");
+    QRegExp ipCameraExp("^http://(.*)$");
+
+
+    if (m_camConfig.url().indexOf(localCameraExp) >= 0)
+    {
+        camCapture = new LocalCamCapture(m_camConfig);
+    } else if (m_camConfig.url().indexOf(ipCameraExp) >= 0)
+    {
+        camCapture = new IpCamCapture(camConfig);
+
+    }
+
     qDebug() << "CamCaptureThread constructed";
 }
 

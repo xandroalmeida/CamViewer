@@ -22,22 +22,22 @@ class CamViewFrame : public QFrame
     Q_OBJECT
     
 public:
-    explicit CamViewFrame(const CamConfig& camConfig, AppControl *appCtrl, QWidget *parent = 0);
+    explicit CamViewFrame(CamCaptureThread* cct, AppControl *appCtrl, QWidget *parent = 0);
     virtual ~CamViewFrame();
-    
+    CamCaptureThread* camCaptureThread() {return m_camCaptureThread;}
+
 private slots:
     void on_btnEdit_clicked();
     void on_btnClose_clicked();
 
 signals:
-    void btnClose_clicked(CamViewFrame *config);
+    void close(CamViewFrame *cvf);
     void btnEdit_clicked(CamConfig *config);
 
 private:
     AppControl *m_appCtrl;
     Ui::CamViewFrame *ui;
-    CamConfig m_camConfig;
-    CamCaptureThread* camCaptureThread;
+    CamCaptureThread* m_camCaptureThread;
 };
 
 #endif // CAMVIEWFRAME_H

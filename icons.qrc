@@ -20,5 +20,6 @@
         <file>icons/Trash.png</file>
         <file>icons/User.png</file>
         <file>images/logo_sonicit.png</file>
+        <file>icons/camvideo.png</file>
     </qresource>
 </RCC>

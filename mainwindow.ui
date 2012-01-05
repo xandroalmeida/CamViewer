@@ -96,22 +96,6 @@
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Minimum</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
          <widget class="QToolButton" name="toolButton_3">
           <property name="text">
            <string/>
@@ -151,7 +135,7 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>150</width>
+          <width>75</width>
           <height>0</height>
          </size>
         </property>
@@ -228,13 +212,16 @@
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
         <widget class="QWidget" name="camViewerDockWidget">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>171</width>
-           <height>224</height>
+           <width>127</width>
+           <height>220</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="camViewerDockLayout"/>

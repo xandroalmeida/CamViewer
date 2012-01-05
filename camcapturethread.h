@@ -20,9 +20,11 @@ class CamCaptureThread : public QThread
 {
     Q_OBJECT
 public:
-    CamCaptureThread(CamConfig camConfig, CamCapture* camCapture, QObject *parent = 0);
+    CamCaptureThread(CamConfig camConfig, QObject *parent = 0);
     virtual ~CamCaptureThread();
     void finish();
+    CamConfig camConfig(){return m_camConfig;}
+
 signals:
     void update_image(QImage img);
 
