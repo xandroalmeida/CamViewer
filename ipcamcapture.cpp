@@ -7,6 +7,16 @@ using namespace cv;
 IpCamCapture::IpCamCapture(CamConfig camConfig) :
     CamCapture(camConfig)
 {
+    mjpegCapture = new MjpegCapture("localhost", "8080", "/");
+}
+
+IpCamCapture::~IpCamCapture()
+{
+    if (mjpegCapture) {
+        mjpegCapture->Close();
+        delete mjpegCapture;
+        mjpegCapture = 0;
+    }
 }
 
 bool IpCamCapture::Open()

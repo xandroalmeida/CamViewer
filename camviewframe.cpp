@@ -22,7 +22,7 @@ CamViewFrame::CamViewFrame(const CamConfig& camConfig, AppControl *appCtrl, QWid
     ui->lblTitle->setText(this->m_camConfig.name());
 
     connect(this, SIGNAL(btnEdit_clicked(CamConfig*)), m_appCtrl, SLOT(on_camviewframe_edit(CamConfig*)));
-    connect(this, SIGNAL(btnClose_clicked(CamConfig*)), m_appCtrl, SLOT(on_camviewframe_close(CamConfig*)));
+    connect(this, SIGNAL(btnClose_clicked(CamViewFrame*)), m_appCtrl, SLOT(on_camviewframe_close(CamViewFrame*)));
 
     CamCapture* camCapture;
 
@@ -69,7 +69,7 @@ CamViewFrame::~CamViewFrame()
 
 void CamViewFrame::on_btnClose_clicked()
 {
-    emit btnClose_clicked(&m_camConfig);
+    emit btnClose_clicked(this);
 }
 
 void CamViewFrame::on_btnEdit_clicked()

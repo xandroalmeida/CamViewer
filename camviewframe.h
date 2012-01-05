@@ -30,7 +30,7 @@ private slots:
     void on_btnClose_clicked();
 
 signals:
-    void btnClose_clicked(CamConfig *config);
+    void btnClose_clicked(CamViewFrame *config);
     void btnEdit_clicked(CamConfig *config);
 
 private:

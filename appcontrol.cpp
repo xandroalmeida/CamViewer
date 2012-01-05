@@ -19,11 +19,7 @@ void AppControl::on_camviewframe_edit(CamConfig *cfg)
     }
 }
 
-void AppControl::on_camviewframe_close(CamConfig *cfg)
+void AppControl::on_camviewframe_close(CamViewFrame* frame)
 {
-    /*
-    qDebug() << " AppControl::on_camviewframe_delete " << cfg->name();
-    RepositoryFactory::getCamConfigDAO()->remove(*cfg);
-    mainWindow->reLoadCamViews();
-    */
+    mainWindow->closeCamViewFrame(frame);
 }

@@ -11,6 +11,7 @@ class IpCamCapture : public CamCapture
 {
 public:
     IpCamCapture(CamConfig camConfig);
+    virtual ~IpCamCapture();
     virtual bool Open();
     virtual bool IsOpened();
     virtual void Close();

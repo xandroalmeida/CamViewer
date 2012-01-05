@@ -6,6 +6,7 @@
 #include <cmath>
 #include <QDebug>
 #include <QScopedPointer>
+#include "camviewericon.h"
 
 #define gridCol(i, cols) ((i)/(cols));
 #define gridRow(i, cols) ((i)%(cols));
@@ -27,7 +28,7 @@ MainWindow::~MainWindow()
 void MainWindow::reLoadCamViews()
 {
     //Remove todos os frames atuais
-    QLayoutItem *child;
+    QLayoutItem* child;
     while ((child = ui->centralLayout->takeAt(0)) != 0) {
         delete child->widget();
         delete child;
@@ -44,6 +45,20 @@ void MainWindow::reLoadCamViews()
         ui->centralLayout->addWidget(new CamViewFrame(camConfigs.at(i),&appCtrl, this), row, col, 1, 1);
     }
 
+}
+
+void MainWindow::closeCamViewFrame(CamViewFrame* frame)
+{
+    int idx = ui->centralLayout->indexOf(frame);
+    if (idx >= 0)
+    {
+        QLayoutItem* item = ui->centralLayout->takeAt(idx);
+        item->widget()->hide();
+        item->widget()->setParent(ui->camViewerDockWidget);
+        ui->camViewerDockLayout->addWidget(item->widget());
+
+        ui->camViewerDockLayout->addWidget(new CamViewerIcon(ui->camViewerDockWidget));
+    }
 }
 
 void MainWindow::on_btnAddCamera_clicked()

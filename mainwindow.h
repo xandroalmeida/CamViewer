@@ -16,6 +16,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void reLoadCamViews();
+    void closeCamViewFrame(CamViewFrame* frame);
 
 private slots:
     void on_btnAddCamera_clicked();
