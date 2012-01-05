@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     camcapture.cpp \
     localcamcapture.cpp \
     ipcamcapture.cpp \
-    camviewericon.cpp
+    camviewericon.cpp \
+    camera.cpp
 
 HEADERS  += mainwindow.h \
     camconfig.h \
@@ -51,7 +52,8 @@ HEADERS  += mainwindow.h \
     camcapture.h \
     localcamcapture.h \
     ipcamcapture.h \
-    camviewericon.h
+    camviewericon.h \
+    camera.h
 
 FORMS    += mainwindow.ui \
     camconfigdlg.ui \
@@ -75,9 +77,9 @@ LIBS += $$OPENCV_HOME\\lib\\libopencv_core231.a \
         $$OPENCV_HOME\\share\\OpenCV\\3rdparty\\lib\\liblibtiff.a \
         $$OPENCV_HOME\\share\\OpenCV\\3rdparty\\lib\\liblibjpeg.a
 
-LIBS += $$BOOST_HOME\\stage\\lib\\libboost_iostreams-mgw45-mt-1_48.a \
-        $$BOOST_HOME\\stage\\lib\\libboost_system-mgw45-mt-1_48.a \
-        $$BOOST_HOME\\stage\\lib\\libboost_filesystem-mgw45-mt-1_48.a
+LIBS += $$BOOST_HOME\\stage\\lib\\libboost_iostreams-mgw44-mt-1_48.a \
+        $$BOOST_HOME\\stage\\lib\\libboost_system-mgw44-mt-1_48.a \
+        $$BOOST_HOME\\stage\\lib\\libboost_filesystem-mgw44-mt-1_48.a
 
 LIBS += C:\\QtSDK\\mingw\\lib\\libws2_32.a \
         C:\\QtSDK\\mingw\\lib\\libgdi32.a \
@@ -89,6 +91,8 @@ LIBS += C:\\QtSDK\\mingw\\lib\\libws2_32.a \
         C:\\QtSDK\\mingw\\lib\\libavifil32.a \
         C:\\QtSDK\\mingw\\lib\\libavicap32.a \
         C:\\QtSDK\\mingw\\lib\\libvfw32.a \
+
+
 
 
 

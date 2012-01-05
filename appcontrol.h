@@ -4,10 +4,10 @@
 #include <QObject>
 #include "camconfig.h"
 #include <QList>
-#include <camcapturethread.h>
 
 class CamViewFrame;
 class MainWindow;
+class Camera;
 
 class AppControl : public QObject
 {
@@ -17,14 +17,14 @@ public:
     ~AppControl();
     void init();
 
-signals:
+    void showCamera(Camera* camera);
+    void closeCamera(Camera* camera);
+    void editCamera(Camera* camera);
 
-public slots:
-    void on_camviewframe_edit(CamConfig *cfg);
-    void on_camviewframe_close(CamViewFrame *cfg);
+
 private:
     MainWindow *mainWindow;
-    QList<CamCaptureThread*> camCaptureThreadList;
+    QList<Camera*> cameraList;
 
 };
 

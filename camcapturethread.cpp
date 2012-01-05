@@ -12,6 +12,8 @@ CamCaptureThread::CamCaptureThread(CamConfig camConfig, QObject *parent) :
     m_camConfig(camConfig),
     m_videoWriter()
 {
+    setObjectName(camConfig.name());
+
     QRegExp localCameraExp("^local$");
     QRegExp ipCameraExp("^http://(.*)$");
 
@@ -22,7 +24,6 @@ CamCaptureThread::CamCaptureThread(CamConfig camConfig, QObject *parent) :
     } else if (m_camConfig.url().indexOf(ipCameraExp) >= 0)
     {
         camCapture = new IpCamCapture(camConfig);
-
     }
 
     qDebug() << "CamCaptureThread constructed";

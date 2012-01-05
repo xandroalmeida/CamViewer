@@ -150,18 +150,23 @@ string MjpegCapture::GetFrame()
 bool MjpegCapture::Open()
 {
     bool m_isOpened = false;
-    boost::asio::ip::tcp::resolver::query query(m_host, m_port);
-    boost::asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
-    boost::asio::connect(socket, endpoint_iterator);
-    SendRequest();
+    try {
+        boost::asio::ip::tcp::resolver::query query(m_host, m_port);
+        boost::asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
+        boost::asio::connect(socket, endpoint_iterator);
 
-    string response = ReadLine();
-    cout << "response : " << response << endl;
+        SendRequest();
 
-    response = ReadUntil(";boundary=");
-    boundary = ReadLine();
+        string response = ReadLine();
+        cout << "response : " << response << endl;
 
-    m_isOpened = true;
+        response = ReadUntil(";boundary=");
+        boundary = ReadLine();
+
+        m_isOpened = true;
+    } catch (boost::system::system_error e) {
+        m_isOpened = false;
+    }
     return  m_isOpened;
 }
 

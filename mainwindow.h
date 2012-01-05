@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include "appcontrol.h"
 #include "camviewericon.h"
+#include <QMap>
+#include "camviewericon.h"
+#include "camviewframe.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,18 +19,20 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void showCamMaximized(CamCaptureThread* cct);
-    void showCamMinimized(CamCaptureThread* cct);
 
-private slots:
-    void on_btnAddCamera_clicked();
-    void on_camViewerIcon_doubleclick(CamViewerIcon* cvi);
-    void on_camViewer_close(CamViewFrame*);
+    void showCamera(Camera *camera);
+    void closeCamera(Camera *camera);
+    void editCamera(Camera *camera);
+
 
 private:
     Ui::MainWindow *ui;
     AppControl appCtrl;
+    QMap<Camera*, CamViewFrame*> camerasMaximized;
+    QMap<Camera*, CamViewerIcon*> camerasMinimized;
 
+    void organizeCameras();
+    void addFrame(CamViewFrame*);
 
 };
 

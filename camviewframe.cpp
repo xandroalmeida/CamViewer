@@ -1,21 +1,16 @@
 #include "camviewframe.h"
 #include "ui_camviewframe.h"
-#include <QRegExp>
 #include <QDebug>
-#include "localcamcapture.h"
-#include "ipcamcapture.h"
-#include <QScopedPointer>
-#include <QElapsedTimer>
 
-CamViewFrame::CamViewFrame(CamCaptureThread* cct, AppControl *appCtrl, QWidget *parent) :
+CamViewFrame::CamViewFrame(Camera* camera, AppControl* appCtrl, QWidget* parent) :
     QFrame(parent),
     ui(new Ui::CamViewFrame)
 {
-    m_camCaptureThread = cct;
+    this->camera = camera;
 
     ui->setupUi(this);
-    m_appCtrl = appCtrl;
-    ui->lblTitle->setText(this->m_camCaptureThread->camConfig().name());
+    appControl = appCtrl;
+    ui->lblTitle->setText(camera->camConfig().name());
 
 }
 
@@ -29,10 +24,10 @@ CamViewFrame::~CamViewFrame()
   **/
 void CamViewFrame::on_btnClose_clicked()
 {
-    emit close(this);
+    appControl->closeCamera(camera);
 }
 
 void CamViewFrame::on_btnEdit_clicked()
 {
-    //emit btnEdit_clicked(&m_camConfig);
+    appControl->editCamera(camera);
 }

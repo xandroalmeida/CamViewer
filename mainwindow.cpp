@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     appCtrl.init();
+    qDebug() << "MainWindow constructed";
 }
 
 MainWindow::~MainWindow()
@@ -25,11 +26,42 @@ MainWindow::~MainWindow()
 }
 
 /**
-  Exibe na tela o video capturado por esta thread
-  Este método não é responsável por eliminar o icon do dock quando o video
-  é maximizado
+    Exibe o conteudo de uma camera
   **/
-void MainWindow::showCamMaximized(CamCaptureThread* cct)
+void MainWindow::showCamera(Camera *camera)
+{
+    /** Verifica se a camera já esta maximizada, se sim, apenas retorna **/
+    if (this->camerasMaximized.contains(camera))
+    {
+        return;
+    }
+
+    /** Procura se a camera ja existe e esta minimizada, se sim, vamos removela. **/
+    if (this->camerasMinimized.contains(camera))
+    {
+        CamViewerIcon *cvi = this->camerasMinimized[camera];
+        /** Encontra o widget no dock */
+        int idx = ui->camViewerDockLayout->indexOf(cvi);
+        if (idx >= 0)
+        {
+            QLayoutItem *item = ui->camViewerDockLayout->takeAt(idx);
+
+            /** Agora remove este icone do dock */
+            delete item->widget();
+            delete item;
+        }
+
+        /** retira a camera da lista de cameras minimizadas **/
+        this->camerasMinimized.remove(camera);
+    }
+
+    /** Finalmente, vamos colocar o frame da tela **/
+    CamViewFrame* cvf = new CamViewFrame(camera, &appCtrl, this);
+    addFrame(cvf);
+    this->camerasMaximized[camera] = cvf;
+}
+
+void MainWindow::addFrame(CamViewFrame *cvf)
 {
     /** Calula o "xy" no grid da tela */
     int i = ui->centralLayout->count()+1;
@@ -37,73 +69,64 @@ void MainWindow::showCamMaximized(CamCaptureThread* cct)
     int col = gridCol(i, cols);
     int row = gridRow(i, cols);
 
-    /** Cria o widget para exibir o video. Este objeto deve ser destruido quando o usuário
-      fechar esta exibição, lembre-se que a thread deve manter-se vida
-      */
-    CamViewFrame* cvf = new CamViewFrame(cct,&appCtrl, this);
-    connect(cvf, SIGNAL(close(CamViewFrame*)), this, SLOT(on_camViewer_close(CamViewFrame*)));
-
     ui->centralLayout->addWidget(cvf, row, col, 1, 1);
 }
 
 /**
-  Adiciona um icone do video minimizado no dock, não é responsável por eliminar o frame de vizualização
-  do video
+  Minimiza a janela de exibição do video
   **/
-void MainWindow::showCamMinimized(CamCaptureThread* cct)
+void MainWindow::closeCamera(Camera *camera)
 {
-    /** Cria o icon */
-    CamViewerIcon* cvIcon = new CamViewerIcon(cct, this);
-    connect(cvIcon, SIGNAL(doubleclick(CamViewerIcon*)), this, SLOT(on_camViewerIcon_doubleclick(CamViewerIcon*)));
-    ui->camViewerDockLayout->addWidget(cvIcon);
+    /** Verifica se a camera já esta minimizada, se sim, apenas retorna **/
+    if (this->camerasMinimized.contains(camera))
+    {
+        return;
+    }
+
+    /** Procura se a camera ja existe e esta maximizada, se sim, vamos removela. **/
+    if (this->camerasMaximized.contains(camera))
+    {
+        CamViewFrame* cvf = this->camerasMaximized[camera];
+        /** Encontra o widget na janela */
+        int idx = ui->centralLayout->indexOf(cvf);
+        if (idx >= 0)
+        {
+            QLayoutItem *item = ui->centralLayout->takeAt(idx);
+
+            /** Agora remove o widget da janela */
+            delete item->widget();
+            delete item;
+        }
+
+        /** retira a camera da lista de cameras minimizadas **/
+        this->camerasMaximized.remove(camera);
+    }
+
+    /** Coloca o icone no dock **/
+    CamViewerIcon *cvi = new CamViewerIcon(camera, &appCtrl, this);
+    this->camerasMinimized[camera] = cvi;
+    ui->camViewerDockLayout->addWidget(cvi);
+    organizeCameras();
 }
 
-/**
-  Trata o double click no icone do video, isso significa que o usuário que maximizar a visualização
-  deste video.
-  **/
-void MainWindow::on_camViewerIcon_doubleclick(CamViewerIcon* cvi)
+void MainWindow::editCamera(Camera *camera)
 {
-    qDebug() << "MainWindow::on_camViewerIcon_doubleclick(CamViewerIcon* cvi)";
-    /** Encontra o widget no dock */
-    int idx = ui->camViewerDockLayout->indexOf(cvi);
-    if (idx >= 0)
+
+}
+
+void MainWindow::organizeCameras()
+{
+    QLayoutItem *item;
+    QList<QWidget*> wl;
+    while ((item = ui->centralLayout->takeAt(0)) != NULL)
     {
-        QLayoutItem* item = ui->camViewerDockLayout->takeAt(idx);
-
-        /** Mostra o video para o usuario */
-        showCamMaximized(cvi->camCaptureThread());
-
-        /** Agora remove este icone do dock */
-        delete item->widget();
+        wl.append(item->widget());
         delete item;
     }
-}
 
-/**
-  Responde ao sinal de fechar o frame de video
-  **/
-void MainWindow::on_camViewer_close(CamViewFrame* cvf)
-{
-    qDebug() << "MainWindow::on_camViewerIcon_close(CamViewFrame cvf)";
-
-    /** Encontra o frame no layout **/
-    int idx = ui->centralLayout->indexOf(cvf);
-    if (idx >= 0)
+    QWidget *w;
+    foreach (w, wl)
     {
-        QLayoutItem* item = ui->centralLayout->takeAt(idx);
-
-        /** Mostra o icone do video minimizado */
-        showCamMinimized(cvf->camCaptureThread());
-
-        /** Remove o frame do layout */
-        delete item->widget();
-        delete item;
+        ui->centralLayout->addWidget(w);
     }
-}
-
-void MainWindow::on_btnAddCamera_clicked()
-{
-    CamConfigDlg dlg;
-    dlg.exec();
 }

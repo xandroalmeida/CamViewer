@@ -4,10 +4,7 @@
 #include <QFrame>
 #include "camconfig.h"
 #include "appcontrol.h"
-#include "camcapture.h"
-#include "camcapturethread.h"
-#include <QScopedPointer>
-
+#include "camera.h"
 
 namespace Ui {
 class CamViewFrame;
@@ -22,22 +19,18 @@ class CamViewFrame : public QFrame
     Q_OBJECT
     
 public:
-    explicit CamViewFrame(CamCaptureThread* cct, AppControl *appCtrl, QWidget *parent = 0);
+    explicit CamViewFrame(Camera* camera, AppControl *appCtrl, QWidget *parent = 0);
     virtual ~CamViewFrame();
-    CamCaptureThread* camCaptureThread() {return m_camCaptureThread;}
 
 private slots:
     void on_btnEdit_clicked();
     void on_btnClose_clicked();
 
-signals:
-    void close(CamViewFrame *cvf);
-    void btnEdit_clicked(CamConfig *config);
-
 private:
-    AppControl *m_appCtrl;
+    AppControl *appControl;
     Ui::CamViewFrame *ui;
-    CamCaptureThread* m_camCaptureThread;
+    Camera* camera;
+
 };
 
 #endif // CAMVIEWFRAME_H

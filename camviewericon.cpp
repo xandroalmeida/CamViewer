@@ -2,16 +2,16 @@
 #include "ui_camviewericon.h"
 #include <QDebug>
 
-CamViewerIcon::CamViewerIcon(CamCaptureThread* cct, QWidget *parent) :
+CamViewerIcon::CamViewerIcon(Camera* camera, AppControl* appControl, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CamViewerIcon)
 {
     ui->setupUi(this);
 
-    /** Apenas quarda a referencia pata thread que esta iconizada */
-    m_camCaptureThread = cct;
+    this->camera = camera;
+    this->appControl = appControl;
 
-    ui->lblName->setText(cct->camConfig().name());
+    ui->lblName->setText(camera->camConfig().name());
 }
 
 CamViewerIcon::~CamViewerIcon()
@@ -25,6 +25,5 @@ CamViewerIcon::~CamViewerIcon()
   */
 void CamViewerIcon::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    qDebug() << "CamViewerIcon::mouseDoubleClickEvent";
-    emit doubleclick(this);
+    appControl->showCamera(camera);
 }

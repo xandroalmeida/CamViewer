@@ -3,10 +3,11 @@
 
 #include <QWidget>
 #include <QMouseEvent>
-#include "camcapturethread.h"
+#include "camera.h"
+#include "appcontrol.h"
 
 namespace Ui {
-    class CamViewerIcon;
+class CamViewerIcon;
 }
 
 class CamViewerIcon : public QWidget
@@ -14,18 +15,14 @@ class CamViewerIcon : public QWidget
     Q_OBJECT
 
 public:
-    explicit CamViewerIcon(CamCaptureThread* cct, QWidget *parent = 0);
+    explicit CamViewerIcon(Camera* camera, AppControl* appControl, QWidget *parent = 0);
     ~CamViewerIcon();
     virtual void mouseDoubleClickEvent(QMouseEvent *);
-    CamCaptureThread* camCaptureThread() {return this->m_camCaptureThread;}
-
-signals:
-    void doubleclick(CamViewerIcon*);
 
 private:
     Ui::CamViewerIcon *ui;
-    /** Apenas uma referencia para a thread que vai ser maximizada */
-    CamCaptureThread* m_camCaptureThread;
+    AppControl* appControl;
+    Camera* camera;
 };
 
 #endif // CAMVIEWERICON_H
