@@ -19,7 +19,7 @@ class MainWindow : public QMainWindow
     
 public:
     explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    virtual ~MainWindow();
 
     void showCamera(Camera *camera);
     void closeCamera(Camera *camera);

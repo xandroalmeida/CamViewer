@@ -22,6 +22,25 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    qDebug() << "MainWindow::~MainWindow()";
+    Camera *cam;
+    CamViewerIcon *cvi;
+    CamViewFrame *cvf;
+
+    foreach(cam, camerasMinimized.keys())
+    {
+        cvi = camerasMinimized.take(cam);
+        delete cvi;
+        delete cam;
+    }
+
+    foreach(cam, camerasMaximized.keys())
+    {
+        cvf = camerasMaximized.take(cam);
+        delete cvf;
+        delete cam;
+    }
+
     delete ui;
 }
 

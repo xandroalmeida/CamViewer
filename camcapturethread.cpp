@@ -60,7 +60,7 @@ void CamCaptureThread::run()
     {
         (*camCapture) >> image;
         processImage(image);
-        msleep(100);
+        msleep(20);
     }
     qDebug() << "CamCaptureThread::run() finished";
     camCapture->Close();
