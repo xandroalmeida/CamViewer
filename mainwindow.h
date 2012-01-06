@@ -25,6 +25,9 @@ public:
     void editCamera(Camera *camera);
 
 
+private slots:
+    void on_btnAddCamera_clicked();
+
 private:
     Ui::MainWindow *ui;
     AppControl appCtrl;

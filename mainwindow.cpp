@@ -130,3 +130,9 @@ void MainWindow::organizeCameras()
         ui->centralLayout->addWidget(w);
     }
 }
+
+void MainWindow::on_btnAddCamera_clicked()
+{
+    CamConfigDlg dlg;
+    dlg.exec();
+}

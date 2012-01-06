@@ -51,7 +51,7 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="leftMargin">
-       <number>9</number>
+       <number>0</number>
       </property>
       <property name="rightMargin">
        <number>9</number>
@@ -224,7 +224,24 @@
            <height>224</height>
           </rect>
          </property>
-         <layout class="QVBoxLayout" name="camViewerDockLayout"/>
+         <layout class="QVBoxLayout" name="camViewerDockLayout1">
+          <item>
+           <layout class="QVBoxLayout" name="camViewerDockLayout"/>
+          </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </widget>
        </widget>
       </item>
