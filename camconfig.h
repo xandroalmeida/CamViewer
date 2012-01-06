@@ -13,7 +13,6 @@ public:
     CamConfig();
     virtual ~CamConfig();
 
-    void setUuid() {this->m_uuid = QUuid::createUuid();}
     void setUuid(QUuid uuid) {this->m_uuid = uuid;}
 
     QUuid uuid() {return this->m_uuid;}

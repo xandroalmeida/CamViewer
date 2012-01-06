@@ -17,6 +17,7 @@ public:
     explicit AppControl(MainWindow *mainWindow, QObject *parent = 0);
     ~AppControl();
     void init();
+    void initCamera(CamConfig cfg);
 
     void showCamera(Camera* camera);
     void closeCamera(Camera* camera);

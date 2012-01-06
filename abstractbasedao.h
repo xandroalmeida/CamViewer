@@ -43,7 +43,6 @@ protected:
 public:
     void create(T& t)
     {
-        t.setUuid();
         QScopedPointer<QSettings> settings(openSettings());
         settings->beginGroup(t.uuid());
         write(t, settings.data());

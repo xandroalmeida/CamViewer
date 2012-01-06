@@ -2,6 +2,7 @@
 #include "ui_camconfigdlg.h"
 #include "repositoryfactory.h"
 #include "camconfigdao.h"
+#include <QDebug>
 
 CamConfigDlg::CamConfigDlg(CamConfig *cfg, QWidget *parent) :
     QDialog(parent),
@@ -24,19 +25,29 @@ CamConfigDlg::~CamConfigDlg()
     delete ui;
 }
 
-void CamConfigDlg::on_buttonBox_accepted()
+CamConfig CamConfigDlg::camConfig()
 {
-    QSharedPointer<CamConfigDAO> repository(RepositoryFactory::getCamConfigDAO());
     CamConfig config;
     config.setName(ui->edtName->text());
     config.setPort(ui->spbPort->value());
     config.setUrl(ui->edtUrl->text());
     config.setRecord(ui->chbRecord->isChecked());
+    config.setUuid(m_uuid);
+    return config;
+}
+
+void CamConfigDlg::on_buttonBox_accepted()
+{
+    QSharedPointer<CamConfigDAO> repository(RepositoryFactory::getCamConfigDAO());
+    CamConfig config = camConfig();
     if (m_uuid.isNull())
     {
-        repository->create(config);
-    } else {
+        qDebug() << "CamConfigDlg new Camera";
+        m_uuid = QUuid::createUuid();
         config.setUuid(m_uuid);
+        repository->create(config);
+        qDebug() << "CamConfigDlg new Camera saved";
+    } else {
         bool ret = repository->update(config);
         qDebug() << "CamConfigDlg::on_buttonBox_accepted() update" << ret;
     }

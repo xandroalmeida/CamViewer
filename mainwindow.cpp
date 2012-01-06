@@ -174,5 +174,8 @@ void MainWindow::organizeCameras()
 void MainWindow::on_btnAddCamera_clicked()
 {
     CamConfigDlg dlg;
-    dlg.exec();
+    if (dlg.exec())
+    {
+        appCtrl.initCamera(dlg.camConfig());
+    }
 }

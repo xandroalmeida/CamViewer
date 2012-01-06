@@ -31,12 +31,15 @@ void AppControl::init()
     while (camConfigs.size() > 0)
     {
         CamConfig cfg = camConfigs.takeAt(0);
-        Camera* camera = new Camera(cfg, this);
-        cameraList.append(camera);
-        qDebug() << "Camera[" << cfg.name() << "]created";
-        mainWindow->showCamera(camera);
-        qDebug() << "Camera showed";
+        initCamera(cfg);
     }
+}
+
+void AppControl::initCamera(CamConfig cfg)
+{
+    Camera* camera = new Camera(cfg, this);
+    cameraList.append(camera);
+    mainWindow->showCamera(camera);
 }
 
 void AppControl::updateImageframe(Camera *camera, QImage *img)

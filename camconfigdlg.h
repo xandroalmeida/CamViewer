@@ -15,6 +15,7 @@ class CamConfigDlg : public QDialog
 public:
     explicit CamConfigDlg(CamConfig *cfg = 0, QWidget *parent = 0);
     ~CamConfigDlg();
+    CamConfig camConfig();
     
 private slots:
     void on_buttonBox_accepted();
