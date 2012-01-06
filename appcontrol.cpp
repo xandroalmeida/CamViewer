@@ -39,9 +39,9 @@ void AppControl::init()
     }
 }
 
-void AppControl::update_imageframe(Camera *camera, QImage img)
+void AppControl::updateImageframe(Camera *camera, QImage *img)
 {
-
+    mainWindow->updateImageframe(camera, img);
 }
 
 void AppControl::showCamera(Camera* camera)

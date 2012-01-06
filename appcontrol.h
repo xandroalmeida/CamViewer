@@ -21,7 +21,7 @@ public:
     void showCamera(Camera* camera);
     void closeCamera(Camera* camera);
     void editCamera(Camera* camera);
-    void update_imageframe(Camera *camera, QImage img);
+    void updateImageframe(Camera *camera, QImage *img);
 
 private:
     MainWindow *mainWindow;

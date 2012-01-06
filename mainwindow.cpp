@@ -116,6 +116,21 @@ void MainWindow::editCamera(Camera *camera)
 
 }
 
+/**
+  Atualiza a imagem do frame da camera
+  **/
+void MainWindow::updateImageframe(Camera *camera, QImage *img)
+{
+    /** Verifica se a camera esta maximizada **/
+    if(!this->camerasMaximized.contains(camera))
+    {
+        return;
+    }
+
+    CamViewFrame *cvf = this->camerasMaximized[camera];
+    cvf->updateImageFrame(img);
+}
+
 /** Reorganiza os frames na telas **/
 void MainWindow::organizeCameras()
 {

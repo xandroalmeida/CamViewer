@@ -21,6 +21,7 @@ class CamViewFrame : public QFrame
 public:
     explicit CamViewFrame(Camera* camera, AppControl *appCtrl, QWidget *parent = 0);
     virtual ~CamViewFrame();
+    void updateImageFrame(QImage*);
 
 private slots:
     void on_btnEdit_clicked();

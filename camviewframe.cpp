@@ -19,6 +19,11 @@ CamViewFrame::~CamViewFrame()
     delete ui;
 }
 
+void CamViewFrame::updateImageFrame(QImage *img)
+{
+    ui->glWidget->renderImage(img);
+}
+
 /**
   É chamado quando o usuário seleciona a opção fechar
   **/

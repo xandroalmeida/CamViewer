@@ -10,9 +10,7 @@ class GLWidget : public QGLWidget
 public:
     GLWidget(QWidget * parent = 0);
     virtual ~GLWidget();
-
-public slots:
-    void renderImage(QImage frame);
+    void renderImage(QImage *frame);
 
 protected:
     virtual void paintGL();

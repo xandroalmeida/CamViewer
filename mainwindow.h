@@ -2,9 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMap>
+#include <QImage>
 #include "appcontrol.h"
 #include "camviewericon.h"
-#include <QMap>
 #include "camviewericon.h"
 #include "camviewframe.h"
 
@@ -23,6 +24,7 @@ public:
     void showCamera(Camera *camera);
     void closeCamera(Camera *camera);
     void editCamera(Camera *camera);
+    void updateImageframe(Camera*, QImage*);
 
 
 private slots:

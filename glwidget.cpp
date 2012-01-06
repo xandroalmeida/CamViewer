@@ -14,11 +14,11 @@ GLWidget::~GLWidget()
 
 }
 
-void GLWidget::renderImage(QImage frame)
+void GLWidget::renderImage(QImage *frame)
 {
     if (!this->waitingUpdate)
     {
-        m_GLFrame = QGLWidget::convertToGLFormat(frame);
+        m_GLFrame = QGLWidget::convertToGLFormat((*frame));
         this->waitingUpdate = true;
         this->updateGL();
     } else {
