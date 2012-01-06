@@ -2,6 +2,7 @@
 #define CAMERA_H
 
 #include <QObject>
+#include <QImage>
 #include "camconfig.h"
 #include "camcapturethread.h"
 #include "appcontrol.h"
@@ -19,6 +20,8 @@ private:
     CamConfig m_camConfig;
     CamCaptureThread* camCaptureThread;
     AppControl *appControl;
+public slots:
+    void on_update_image(QImage image);
 
 };
 

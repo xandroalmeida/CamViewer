@@ -26,7 +26,7 @@ MainWindow::~MainWindow()
 }
 
 /**
-    Exibe o conteudo de uma camera
+   Maximiza o frame que exibe as imagens da camera.
   **/
 void MainWindow::showCamera(Camera *camera)
 {
@@ -61,6 +61,8 @@ void MainWindow::showCamera(Camera *camera)
     this->camerasMaximized[camera] = cvf;
 }
 
+/** Coloca o frame no layout da tela, o frame sempre é posicionado na ultima posição livre do grid.
+    Note que se existir "buracos" no grid, eles não serão preenchidos**/
 void MainWindow::addFrame(CamViewFrame *cvf)
 {
     /** Calula o "xy" no grid da tela */
@@ -114,9 +116,12 @@ void MainWindow::editCamera(Camera *camera)
 
 }
 
+/** Reorganiza os frames na telas **/
 void MainWindow::organizeCameras()
 {
     QLayoutItem *item;
+
+    /** Remove todos os frames do layout **/
     QList<QWidget*> wl;
     while ((item = ui->centralLayout->takeAt(0)) != NULL)
     {
@@ -124,6 +129,7 @@ void MainWindow::organizeCameras()
         delete item;
     }
 
+    /** Agora recoloca os frames na ordem */
     QWidget *w;
     foreach (w, wl)
     {

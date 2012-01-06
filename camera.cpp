@@ -10,6 +10,7 @@ Camera::Camera(CamConfig cfg, AppControl *appControl, QObject *parent) :
     this->camCaptureThread = new CamCaptureThread(cfg, this);
 
     //this->camCaptureThread->start();
+    connect(this->camCaptureThread, SIGNAL(update_image(QImage)), this, SLOT(on_update_image(QImage)));
 }
 
 Camera::~Camera()
@@ -29,4 +30,10 @@ Camera::~Camera()
     }
 
     delete camCaptureThread;
+}
+
+
+void Camera::on_update_image(QImage image)
+{
+    appControl->update_imageframe(this, image);
 }

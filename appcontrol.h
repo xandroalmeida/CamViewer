@@ -2,8 +2,9 @@
 #define APPCONTROL_H
 
 #include <QObject>
-#include "camconfig.h"
 #include <QList>
+#include <QImage>
+#include "camconfig.h"
 
 class CamViewFrame;
 class MainWindow;
@@ -20,7 +21,7 @@ public:
     void showCamera(Camera* camera);
     void closeCamera(Camera* camera);
     void editCamera(Camera* camera);
-
+    void update_imageframe(Camera *camera, QImage img);
 
 private:
     MainWindow *mainWindow;
