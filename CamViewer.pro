@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     localcamcapture.cpp \
     ipcamcapture.cpp \
     camviewericon.cpp \
-    camera.cpp
+    camera.cpp \
+    opencvcapture.cpp
 
 HEADERS  += mainwindow.h \
     camconfig.h \
@@ -53,7 +54,8 @@ HEADERS  += mainwindow.h \
     localcamcapture.h \
     ipcamcapture.h \
     camviewericon.h \
-    camera.h
+    camera.h \
+    opencvcapture.h
 
 FORMS    += mainwindow.ui \
     camconfigdlg.ui \

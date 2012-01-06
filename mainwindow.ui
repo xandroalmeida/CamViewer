@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>461</width>
     <height>300</height>
    </rect>
   </property>
@@ -85,28 +85,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_2">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="icons.qrc">
-            <normaloff>:/icons/Preferences.png</normaloff>:/icons/Preferences.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="toolButton_3">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="icons.qrc">
-            <normaloff>:/icons/Info.png</normaloff>:/icons/Info.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="btnQuit">
           <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
@@ -135,7 +113,7 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>75</width>
+          <width>120</width>
           <height>0</height>
          </size>
         </property>
@@ -220,8 +198,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>125</width>
-           <height>224</height>
+           <width>116</width>
+           <height>220</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="camViewerDockLayout1">

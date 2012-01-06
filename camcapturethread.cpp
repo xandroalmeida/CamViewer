@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QRegExp>
 #include "localcamcapture.h"
+#include "opencvcapture.h"
 #include "ipcamcapture.h"
 
 CamCaptureThread::CamCaptureThread(CamConfig camConfig, QObject *parent) :
@@ -23,7 +24,9 @@ CamCaptureThread::CamCaptureThread(CamConfig camConfig, QObject *parent) :
         camCapture = new LocalCamCapture(m_camConfig);
     } else if (m_camConfig.url().indexOf(ipCameraExp) >= 0)
     {
-        camCapture = new IpCamCapture(camConfig);
+        camCapture = new OpencvCapture(m_camConfig);
+    } else {
+        camCapture = new OpencvCapture(m_camConfig);
     }
 
     qDebug() << "CamCaptureThread constructed";
@@ -47,6 +50,7 @@ void CamCaptureThread::run()
 {
     while (!camCapture->IsOpened())
     {
+        qDebug() << "Trying to open camera [" << m_camConfig.name() << "]";
         if (camCapture->Open())
         {
             break;
@@ -54,10 +58,12 @@ void CamCaptureThread::run()
         qDebug() << "Error on try to open camera";
         msleep(500);
     }
+    qDebug() << "Camera [" << m_camConfig.name() << "] opened.";
 
     cv::Mat image;
     while (!m_finish)
     {
+        qDebug() << "run";
         (*camCapture) >> image;
         processImage(image);
         msleep(20);

@@ -8,5 +8,4 @@ CamCapture::CamCapture(CamConfig cfg) :
 
 CamCapture::~CamCapture()
 {
-    qDebug() << "CamCapture::~CamCapture()";
 }

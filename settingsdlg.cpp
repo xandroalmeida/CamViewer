@@ -12,3 +12,8 @@ SettingsDlg::~SettingsDlg()
 {
     delete ui;
 }
+
+void SettingsDlg::on_btnSelOutputDir_clicked()
+{
+
+}

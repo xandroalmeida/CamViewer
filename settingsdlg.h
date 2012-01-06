@@ -15,6 +15,9 @@ public:
     explicit SettingsDlg(QWidget *parent = 0);
     ~SettingsDlg();
     
+private slots:
+    void on_btnSelOutputDir_clicked();
+
 private:
     Ui::SettingsDlg *ui;
 };
