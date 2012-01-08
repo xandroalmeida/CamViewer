@@ -32,6 +32,15 @@ public:
     void setMaximized(bool maximized) {this->m_maximized = maximized;}
     bool maximized() {return this->m_maximized;}
 
+    void setBrightness(int brightness) {this->m_brightness = brightness;}
+    int brightness() {return this->m_brightness;}
+
+    void setContrast(int contrast) {this->m_contrast = contrast;}
+    int contrast() {return this->m_contrast;}
+
+    void setBlur(int blur) {this->m_blur = blur;}
+    int blur() {return this->m_blur;}
+
 private:
     QString m_url;
     QString m_name;
@@ -39,6 +48,9 @@ private:
     bool    m_record;
     QUuid   m_uuid;
     bool    m_maximized;
+    int     m_brightness;
+    int     m_contrast;
+    int     m_blur;
 };
 
 #endif // CAMCONFIG_H

@@ -132,7 +132,11 @@ void MainWindow::closeCamera(Camera *camera)
 
 void MainWindow::editCamera(Camera *camera)
 {
-
+    CamConfigDlg dlg(&camera->camConfig());
+    if (dlg.exec())
+    {
+      // appCtrl.initCamera(dlg.camConfig());
+    }
 }
 
 /**

@@ -17,6 +17,13 @@ CamConfigDlg::CamConfigDlg(CamConfig *cfg, QWidget *parent) :
         ui->edtUrl->setText(cfg->url());
         ui->chbRecord->setChecked(cfg->record());
         m_uuid = cfg->uuid();
+        ui->sldBrighthmess->setValue(cfg->brightness());
+        ui->lblBrighthmessValue->setNum(cfg->brightness());
+        ui->sldContrast->setValue(cfg->contrast());
+        ui->lblContrastValue->setNum(cfg->contrast());
+        ui->sldBlur->setValue(cfg->blur());
+        ui->lblBlurValue->setNum(cfg->blur());
+
     }
 }
 
@@ -33,6 +40,9 @@ CamConfig CamConfigDlg::camConfig()
     config.setUrl(ui->edtUrl->text());
     config.setRecord(ui->chbRecord->isChecked());
     config.setUuid(m_uuid);
+    config.setBrightness(ui->sldBrighthmess->value());
+    config.setContrast(ui->sldContrast->value());
+    config.setBlur(ui->sldBlur->value());
     return config;
 }
 
