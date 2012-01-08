@@ -61,11 +61,17 @@
       </property>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>9</number>
+        </property>
         <property name="topMargin">
-         <number>6</number>
+         <number>0</number>
         </property>
         <property name="rightMargin">
-         <number>6</number>
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
         </property>
         <item>
          <widget class="QPushButton" name="btnAddCamera">
@@ -77,12 +83,28 @@
           </property>
           <property name="icon">
            <iconset resource="icons.qrc">
-            <normaloff>:/icons/Add.png</normaloff>:/icons/Add.png</iconset>
+            <normaloff>:/icons/plus_2.png</normaloff>:/icons/plus_2.png</iconset>
           </property>
           <property name="flat">
            <bool>true</bool>
           </property>
          </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <widget class="QPushButton" name="btnQuit">
@@ -94,7 +116,7 @@
           </property>
           <property name="icon">
            <iconset resource="icons.qrc">
-            <normaloff>:/icons/Cross.png</normaloff>:/icons/Cross.png</iconset>
+            <normaloff>:/icons/close_delete_2.png</normaloff>:/icons/close_delete_2.png</iconset>
           </property>
           <property name="flat">
            <bool>true</bool>
@@ -198,8 +220,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>116</width>
-           <height>220</height>
+           <width>118</width>
+           <height>229</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="camViewerDockLayout1">

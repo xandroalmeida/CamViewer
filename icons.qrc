@@ -1,25 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/Add.png</file>
-        <file>icons/Alert.png</file>
-        <file>icons/BluRay.png</file>
-        <file>icons/Cross.png</file>
-        <file>icons/Delete.png</file>
-        <file>icons/Info.png</file>
-        <file>icons/Key.png</file>
-        <file>icons/Magic-Wand.png</file>
-        <file>icons/Minus.png</file>
-        <file>icons/Notepad.png</file>
-        <file>icons/Photos.png</file>
-        <file>icons/Preferences.png</file>
-        <file>icons/Screw-Driver.png</file>
-        <file>icons/Search.png</file>
-        <file>icons/Spanner.png</file>
-        <file>icons/Tick.png</file>
-        <file>icons/Tools.png</file>
-        <file>icons/Trash.png</file>
-        <file>icons/User.png</file>
         <file>images/logo_sonicit.png</file>
         <file>icons/camvideo.png</file>
+        <file>icons/arrow_right.png</file>
+        <file>icons/plus_2.png</file>
+        <file>icons/close_delete_2.png</file>
+        <file>icons/options.png</file>
+        <file>icons/options_2.png</file>
     </qresource>
 </RCC>

@@ -63,7 +63,7 @@
        </property>
        <property name="icon">
         <iconset resource="icons.qrc">
-         <normaloff>:/icons/Screw-Driver.png</normaloff>:/icons/Screw-Driver.png</iconset>
+         <normaloff>:/icons/options_2.png</normaloff>:/icons/options_2.png</iconset>
        </property>
        <property name="flat">
         <bool>true</bool>
@@ -80,7 +80,7 @@
        </property>
        <property name="icon">
         <iconset resource="icons.qrc">
-         <normaloff>:/icons/Minus.png</normaloff>:/icons/Minus.png</iconset>
+         <normaloff>:/icons/arrow_right.png</normaloff>:/icons/arrow_right.png</iconset>
        </property>
        <property name="flat">
         <bool>true</bool>
