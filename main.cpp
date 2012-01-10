@@ -4,6 +4,8 @@
 
 int main(int argc, char *argv[])
 {
+    //http://botan.randombit.net/
+    
     QCoreApplication::setOrganizationName("SonicIT");
     QCoreApplication::setOrganizationDomain("sonicit.com.br");
     QCoreApplication::setApplicationName("CamViewr");
